@@ -46,20 +46,23 @@ class Character < ActiveRecord::Base
   end
 
   def initiative
-    dexterity + composure
+    dexterity + composure + special_attribute_bonus(:initiative)
   end
 
   def health
-    stamina + size
+    stamina + true_size + special_attribute_bonus(:health)
   end
 
   def defense
-    # lowest of two stats
-    (wits > dexterity) ? dexterity : wits
+    ((wits > dexterity) ? dexterity : wits) + special_attribute_bonus(:defense)
   end
 
   def speed
-    strength + dexterity + 5
+    strength + dexterity + true_size + special_attribute_bonus(:speed)
+  end
+  
+  def true_size
+    size + special_attribute_bonus(:size)
   end
 
   # --- "Safe" access methods ---
@@ -106,6 +109,14 @@ class Character < ActiveRecord::Base
 
   def glamour_stats
     "#{max_glamour} / #{glamour_turn}"
+  end
+
+  # --- Methods based on virtual attributes ---
+  
+  def special_attribute_bonus(attrib)
+    bonus = character_merits.inject(0) do |sum, char_merit|
+      sum += char_merit.special_modifier(attrib)
+    end
   end
 
   # --- Methods based on virtual attributes ---

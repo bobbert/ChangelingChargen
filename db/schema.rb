@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100505144805) do
+ActiveRecord::Schema.define(:version => 20110212195113) do
 
   create_table "character_contracts", :force => true do |t|
     t.integer  "character_id"
@@ -90,12 +90,15 @@ ActiveRecord::Schema.define(:version => 20100505144805) do
   end
 
   create_table "merits", :force => true do |t|
-    t.integer  "default_dots"
+    t.integer  "min_dots"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "changeling"
     t.boolean  "supplemental"
+    t.integer  "max_dots"
+    t.string   "special_mod_stat"
+    t.float    "special_modifier"
   end
 
   create_table "seemings", :force => true do |t|
@@ -105,7 +108,7 @@ ActiveRecord::Schema.define(:version => 20100505144805) do
   end
 
   create_table "skill_types", :force => true do |t|
-    t.string   "stype"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -48,7 +48,7 @@ module CharactersHelper
                   ['Clarity:', char.clarity.to_s],
                   ['Initiative:', char.initiative.to_s],
                   ['Defense:', char.defense.to_s],
-                  ['Size:', char.size.to_s],
+                  ['Size:', char.true_size.to_s],
                   ['Speed:', char.speed.to_s] ]
 
     corestats.map {|cs_arr| "<td><label>#{cs_arr[0]}</label> #{cs_arr[1]}</td>" }
