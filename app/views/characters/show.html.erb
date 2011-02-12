@@ -1,0 +1,35 @@
+<!--- Character stat block auto-generated using ChangelingStats Rails app --->
+<div id="character_data">
+<table class="character-stat-block">
+<tr><th colspan=3 class="character-name"><img src="/images/fae.gif"><%= "#{@character.name}, #{@character.title}" %></th></tr>
+<tr><td><label>Seeming:</label> <%= @character.seeming.name %> </td>
+    <td><label>Kith:</label> <%= @character.formatted_kiths %> </td>
+    <td><label>Court: </label> <%= @character.court_name %> </td></tr>
+<tr><td><label>Virtue: </label> <%= @character.virtue.name %> </td>
+    <td><label>Vice: </label> <%= @character.vice.name %> </td>
+    <td><label>Entitlements: </label> None </td></tr>
+<tr><th colspan=3>Attributes</th></tr>
+<% Character::AttributeList.each do |attribute_row| %>
+  <tr>
+  <% attribute_row.each do |attribute| %>
+    <td><label><%= attribute.to_s.titlecase %></label> <%= num_to_dots( @character.send(attribute) ) %> </td>
+  <% end %>
+  </tr>
+<% end %>
+<tr><th> Skills </th><th> Merits / Flaws </th><th> Core Stats </th></tr>
+<% char_skills = render_all_skills_for_char(@character) %>
+<% char_merits_and_contracts = render_all_merits_for_char(@character) + ['<th>Contracts</th>'] + render_all_contracts_for_char(@character) %>
+<% core_stats = render_all_core_stats_for_char(@character) %>
+<% @character.num_table_rows.times do |row_n| %>
+  <tr><%= (char_skills[row_n] || '<td></td>') %>
+      <%= (char_merits_and_contracts[row_n] || '<td></td>') %>
+      <%= (core_stats[row_n] || '<td></td>') %></tr>
+<% end %>
+</table>
+</div>
+<!--- End character stat block --->
+
+<p><textarea id="character_markup" rows=5 cols=72></textarea></p>
+
+<%= link_to "[Edit #{@character.name}]", edit_character_path %> <%= link_to '[Back to List of Characters]', characters_path %>
+

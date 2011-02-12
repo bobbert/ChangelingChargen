@@ -1,0 +1,41 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  seeming_id: 1
+  kith_id: 1
+  virtue_id: 1
+  vice_id: 1
+  court_id: 1
+  wyrd: 1
+  intelligence: 1
+  wits: 1
+  resolve: 1
+  strength: 1
+  dexterity: 1
+  stamina: 1
+  presence: 1
+  manipulation: 1
+  composure: 1
+  size: 1
+  clarity: 1
+
+two:
+  name: MyString
+  seeming_id: 1
+  kith_id: 1
+  virtue_id: 1
+  vice_id: 1
+  court_id: 1
+  wyrd: 1
+  intelligence: 1
+  wits: 1
+  resolve: 1
+  strength: 1
+  dexterity: 1
+  stamina: 1
+  presence: 1
+  manipulation: 1
+  composure: 1
+  size: 1
+  clarity: 1

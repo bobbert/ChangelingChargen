@@ -1,0 +1,9 @@
+<h1>Editing Character #<%= @character.id %>: <%= @character.name %></h1>
+ 
+<% form_for @character do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Update Character" %>
+<% end %>
+ 
+<br /><%= link_to "Show Character Block", character_path %>

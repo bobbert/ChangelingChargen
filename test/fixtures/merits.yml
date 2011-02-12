@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  character_merit_id: 1
+  default_dots: 1
+  name: MyString
+
+two:
+  character_merit_id: 1
+  default_dots: 1
+  name: MyString

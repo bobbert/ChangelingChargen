@@ -1,0 +1,100 @@
+body {
+ font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+div.detail-box {
+  border:2px solid;
+  margin-left:2em;
+  padding:1em;
+  width:600px;
+}
+
+div.detail-box h4 {
+  text-align:center;
+  padding:0.1em 0;
+  margin:0.33em 0;
+}
+
+div.detail-box p {
+  margin:0.2em;
+  padding:0 0.2em;
+  font-size:0.8em;
+}
+
+div.spring-court-style {
+  border:2px solid darkgreen; 
+  background-color:#cfc; 
+}
+div.summer-court-style {
+  border:2px solid darkred; 
+  background-color:#fed; 
+}
+div.autumn-court-style {
+  border:2px solid brown; 
+  background-color:#efd; 
+}
+div.winter-court-style {
+  border:2px solid black; 
+  background-color:#eef; 
+}
+
+img.character-image {
+  float:right;
+  border:1px solid black;
+}
+
+table.character-stat-block {
+  border:2px solid #061; 
+  width:600px;
+  margin:10px 0 20px 0;
+  font-size:0.7em;
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+table.character-stat-block tr th.character-name img {
+  display:inline-block;
+  padding-right:1em;
+}
+
+table.character-stat-block tr th.character-name {
+  font-size:1.33em;
+  background-color:#061;
+  color:white;
+  text-align:left;
+  padding:0 0 0.2em 0;
+  padding-left:2em;
+}
+
+table.character-stat-block tr th {
+  font-size:1em;
+  background-color:#061;
+  color:white;
+  text-align:left;
+  padding-left:2em;
+}
+
+table.character-stat-block tr td {
+  font-size:0.9em;
+  background-color:white;
+  color:black;
+  text-align:left;
+}
+
+table.character-stat-block tr td label {
+  color:#061;
+  padding-left:0.1em;
+  font-weight:bolder;
+}
+
+table.character-stat-block tr td strong {
+  color:#061;
+  padding-left:0.1em;
+}
+
+p.item {
+  margin: 0.2em 0
+}
+
+
+
+

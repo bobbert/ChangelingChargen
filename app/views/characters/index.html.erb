@@ -1,0 +1,15 @@
+<h1>Cast of Characters</h1>
+
+<% Court.find(:all).each do |c| %>
+  <div class="detail-box <%= c.css_style %>" style="display:inline-block; width:200px; margin:0; padding:0.1em 0; vertical-align:top;">
+  <h4><%= c.court_as_human_name %></h4> 
+  <% Character.find_all_by_court_id(c).each do |ch| %>
+      <p><%= link_to ch.name, character_path(ch) %>: <%= link_to '[Edit]', edit_character_path(ch) %> </p>
+  <% end %>
+  </div>
+<% end %>
+
+<p>
+  <%= link_to '[Create New Character]', new_character_path %>
+</p>
+
