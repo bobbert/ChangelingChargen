@@ -90,10 +90,11 @@ SupplementalMerits = [['Arcadian Body',4,4],['Arcadian Metabolism',3,3],['Archiv
                       ['Wisdom of Dreams',3,3],['Workshop'],['Hedge Beast Companion',1,3]]
 
 MeritSpecialModifiers = {
-    'Fast Reflexes' => ['Initiative', 1],
-    'Fleet of Foot' => ['Speed', 1],
-    'Giant' => ['Size', 0.25],
-    'Mantle: Summer' => ['Health', 0.2],
+    'Fast Reflexes' => ['initiative', 1],
+    'Fleet of Foot' => ['speed', 1],
+    'Giant' => ['size', 0.25],
+    'Mantle: Summer' => ['health', 0.2],
+    'Dual Kith' => ['num_kiths', 0.5]
 }
 
 Merit.find(:all).each {|m| m.destroy }

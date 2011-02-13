@@ -1,6 +1,7 @@
 class Character < ActiveRecord::Base
   belongs_to :court
-  has_and_belongs_to_many :kiths
+  belongs_to :kith
+  belongs_to :second_kith, :class_name => "Kith"
   belongs_to :seeming
   belongs_to :vice
   belongs_to :virtue
@@ -70,10 +71,18 @@ class Character < ActiveRecord::Base
   def court_name
     court.blank? ? 'Courtless' : court.name
   end
+  
+  # returns 2 for dual-kith characters, and 1 for everyone else.
+  def number_of_kiths
+    extra_kiths = special_attribute_bonus(:num_kiths)
+    return ((extra_kiths > 0) ? 2 : 1)
+  end
 
   def formatted_kiths
-    return "None" if kiths.blank?
-    return kiths.map {|k| k.name }.join(' / ')
+    if (kith.blank? || second_kith.blank? || (number_of_kiths == 1))
+      return (kith.blank? ? "None" : kith.name)
+    end
+    return "#{kith.name} / #{second_kith.name}"
   end
   
   # --- Many-to-many association mappings ---

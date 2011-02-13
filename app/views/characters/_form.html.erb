@@ -10,6 +10,14 @@
 <%= form.collection_select :seeming_id, Seeming.find(:all), :id, :name %><br />
 <br />
 
+<%= form.label :kith %>
+<%= form.collection_select :kith_id, Kith.find(:all), :id, :name %><br />
+<br />
+
+<%= form.label :second_kith %>
+<%= form.collection_select :second_kith_id, Kith.find(:all), :id, :name %><br />
+<br />
+
 <%= form.label :virtue %>
 <%= form.collection_select :virtue_id, Virtue.find(:all), :id, :name %><br />
 <br />
