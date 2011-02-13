@@ -2,11 +2,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.root :controller => "characters", :action => "index"
 
-  map.resources :characters
+  map.resources :characters do |character|
+    character.resources :merits
+    character.resources :skills
+    character.resources :contracts
+  end
 
-  # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  ## Install the default routes as the lowest priority.
+  #map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action/:id.:format'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

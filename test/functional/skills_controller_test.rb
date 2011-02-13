@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CharactersTest < ActiveSupport::TestCase
+class SkillsControllerTest < ActionController::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

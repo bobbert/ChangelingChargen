@@ -1,0 +1,11 @@
+<h1>Editing <%= @character.name %>'s Merit: <%= @merit.name %></h1>
+ 
+<% form_for ([@character,@character_merit], :url => character_merit_path(@character, @character_merit), :html => {:method => :put}) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Update Character Merit" %>
+<% end %>
+
+<%= link_to 'Show', character_merit_path(@character, @character_merit) %> |
+<%= link_to 'Back', character_merits_path(@character) %>
+

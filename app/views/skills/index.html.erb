@@ -1,0 +1,25 @@
+<h1><%= @character.name %>'s Skills</h1>
+
+<table>
+  <tr>
+	<th>Skill Name</th>
+	<th>Dots</th>
+	<th>Specialty</th>
+	<th colspan=3></th>
+  </tr>
+
+<% @character.character_skills.each do |character_skill| %>
+  <tr>
+	<td><%= h character_skill.skill.name %></td>
+	<td><%= h character_skill.dots %></td>
+	<td><%= h (character_skill.specialty.blank? ? '<None>' : character_skill.specialty) %></td>
+    <td><%= link_to 'Show', character_skill_path(@character, character_skill) %></td>
+    <td><%= link_to 'Edit', edit_character_skill_path(@character, character_skill) %></td>
+    <td><%= link_to 'Delete', character_skill_path(@character, character_skill), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to "New Skill for #{@character.name}", new_character_skill_path(@character) %>

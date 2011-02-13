@@ -1,0 +1,8 @@
+<h1><%= @character.name %>'s Contract: <%= @contract.name %></h1>
+
+<p><b>Contract:</b> <%= h @contract.name %> </p>
+<p><b>Number of Dots:</b> <%= h @character_contract.dots %> </p>
+<p><b>Specialty:</b> <%= h @character_contract.specialty %> </p>
+
+<%= link_to 'Edit', edit_character_contract_path(@character, @character_contract) %> |
+<%= link_to 'Back', character_contracts_path(@character) %>

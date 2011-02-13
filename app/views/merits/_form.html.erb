@@ -1,0 +1,13 @@
+
+<%= form.label :merit %>
+<%= form.collection_select :merit_id, Merit.find(:all), :id, :name %><br />
+<br />
+
+<%= form.label :dots %>
+<%= form.select :dots, (1..10).to_a.map {|n| [n,n] } %><br />
+<br />
+
+<%= form.label :specialty %>
+<%= form.text_field :specialty, :maxlength => 50, :value => nil %><br />
+<br />
+

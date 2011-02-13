@@ -1,0 +1,8 @@
+<h1><%= @character.name %>'s Skill: <%= @skill.name %></h1>
+
+<p><b>Skill:</b> <%= h @skill.name %> </p>
+<p><b>Number of Dots:</b> <%= h @character_skill.dots %> </p>
+<p><b>Specialty:</b> <%= h @character_skill.specialty %> </p>
+
+<%= link_to 'Edit', edit_character_skill_path(@character, @character_skill) %> |
+<%= link_to 'Back', character_skills_path(@character) %>

@@ -1,0 +1,8 @@
+<h1>New merit for <%= @character.name %></h1>
+ 
+<% form_for ([@character,@character_merit], :url => character_merits_path(@character), :html => {:method => :post}) do |f| %>
+  <%= f.error_messages %>
+  <%= render :partial => "form", :object => f %>
+  <%= f.submit "Add Character Merit" %>
+<% end %>
+<%= link_to '[Back to List of Characters]', characters_path %>

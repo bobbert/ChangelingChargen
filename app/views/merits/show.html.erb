@@ -1,0 +1,8 @@
+<h1><%= @character.name %>'s Merit: <%= @merit.name %></h1>
+
+<p><b>Merit:</b> <%= h @merit.name %> </p>
+<p><b>Number of Dots:</b> <%= h @character_merit.dots %> </p>
+<p><b>Specialty:</b> <%= h @character_merit.specialty %> </p>
+
+<%= link_to 'Edit', edit_character_merit_path(@character, @character_merit) %> |
+<%= link_to 'Back', character_merits_path(@character) %>
