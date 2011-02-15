@@ -4,7 +4,7 @@ module CharactersHelper
 
   def num_to_dots( num )
     dot_string = ""
-    num.times {|n| dot_string += (' ' if n%5==0 && n>0).to_s + "&bull;" }
+    num.times {|n| dot_string += (' ' if ((n % 5 == 0) && (n > 0))).to_s + "&bull;" }
     dot_string
   end
 
@@ -57,6 +57,10 @@ module CharactersHelper
   # adds enclosing parens to non-null objects
   def add_parens_if_exists( obj )
     str = obj.blank? ? '' : "(#{obj.to_s})"
+  end
+  
+  def dot_range_list(min_dots = 1, max_dots = 5)
+    (min_dots..max_dots).to_a.map {|n| [n,num_to_dots(n)] }
   end
 
 end

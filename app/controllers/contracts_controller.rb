@@ -1,9 +1,12 @@
 class ContractsController < ApplicationController
 
     rescue_from Exceptions::CharacterContractNotFound, :with => :character_contract_not_found
+    rescue_from ActiveRecord::RecordNotFound, :with => :character_not_found
 
     before_filter :set_character, :only => [:index, :new, :create]
-    before_filter :set_character_and_contracts, :except => [:index, :new, :create]
+    before_filter :set_character_and_contracts, :except => [:index, :new, :create, :dot_range]
+
+    include CharactersHelper
 
     # GET /characters/1/contracts
     # GET /characters/1/contracts.xml
@@ -92,9 +95,19 @@ class ContractsController < ApplicationController
       end
     end
 
-  private
-
     #--- my controller methods ---#
+
+    # GET /characters/1/contracts/1/dot_range
+    # GET /characters/1/contracts/1/dot_range.xml
+    def dot_range
+      dot_range_vals = dot_range_list(1, 5)
+      respond_to do |format|
+        format.xml  { render :xml => dot_range_vals }
+        format.json  { render :json => dot_range_vals }
+      end
+    end
+
+  private
 
     # initialize character with no contract
     def set_character
@@ -110,6 +123,16 @@ class ContractsController < ApplicationController
      raise Exceptions::CharacterContractNotFound if (@character_contract.blank? || (@character_contract.character != @character))
      @contract = @character_contract.contract
      raise Exceptions::CharacterContractNotFound if @contract.blank?
+   end
+
+   # Error message for skill not found
+   def character_not_found
+     flash[:error] = "Character ##{params[:character_id]} cannot be found."
+     respond_to do |format|
+       format.html { redirect_to characters_url }
+       format.xml  { render :xml => @character.errors, :status => :unprocessable_entity }
+       format.json  { render :json => @character.errors, :status => :unprocessable_entity }
+     end
    end
 
    # Error message for contract not found

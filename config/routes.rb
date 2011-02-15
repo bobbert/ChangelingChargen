@@ -8,6 +8,10 @@ ActionController::Routing::Routes.draw do |map|
     character.resources :contracts
   end
 
+  map.merit_dot_range 'merits/:merit_id/dot_range.:format', :controller => 'merits', :action => 'dot_range', :conditions => { :method => :get }
+  map.skill_dot_range 'skills/:skill_id/dot_range.:format', :controller => 'skills', :action => 'dot_range', :conditions => { :method => :get }
+  map.contract_dot_range 'contracts/:contract_id/dot_range.:format', :controller => 'contracts', :action => 'dot_range', :conditions => { :method => :get }
+
   ## Install the default routes as the lowest priority.
   #map.connect ':controller/:action/:id'
   #map.connect ':controller/:action/:id.:format'

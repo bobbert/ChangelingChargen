@@ -1,9 +1,12 @@
 class SkillsController < ApplicationController
 
     rescue_from Exceptions::CharacterSkillNotFound, :with => :character_skill_not_found
-
+    rescue_from ActiveRecord::RecordNotFound, :with => :character_not_found
+    
     before_filter :set_character, :only => [:index, :new, :create]
-    before_filter :set_character_and_skills, :except => [:index, :new, :create]
+    before_filter :set_character_and_skills, :except => [:index, :new, :create, :dot_range]
+
+    include CharactersHelper
 
     # GET /characters/1/skills
     # GET /characters/1/skills.xml
@@ -92,9 +95,19 @@ class SkillsController < ApplicationController
       end
     end
 
-  private
-
     #--- my controller methods ---#
+
+    # GET /characters/1/skills/1/dot_range
+    # GET /characters/1/skills/1/dot_range.xml
+    def dot_range
+      dot_range_vals = dot_range_list(1, 5)
+      respond_to do |format|
+         format.xml  { render :xml => dot_range_vals }
+         format.json  { render :json => dot_range_vals }
+      end
+    end
+
+  private
 
     # initialize character with no skill
     def set_character
@@ -113,9 +126,23 @@ class SkillsController < ApplicationController
    end
 
    # Error message for skill not found
+   def character_not_found
+     flash[:error] = "Character ##{params[:character_id]} cannot be found."
+     respond_to do |format|
+       format.html { redirect_to characters_url }
+       format.xml  { render :xml => @character.errors, :status => :unprocessable_entity }
+       format.json  { render :json => @character.errors, :status => :unprocessable_entity }
+     end
+   end
+
+   # Error message for skill not found
    def character_skill_not_found
      flash[:error] = "#{@character.name} does not have access to skill ##{params[:id]}."
-     redirect_to character_url(@character)
+     respond_to do |format|
+       format.html { redirect_to character_url(@character) }
+       format.xml  { render :xml => @character_skill.errors, :status => :unprocessable_entity }
+       format.json  { render :json => @character_skill.errors, :status => :unprocessable_entity }
+     end
    end
 
 end
