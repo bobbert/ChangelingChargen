@@ -1,5 +1,9 @@
-<h1>Editing Character #<%= @character.id %>: <%= @character.name %></h1>
+<h1>Editing Character #<span id="character-id"><%= @character.id %></span>: <%= @character.name %></h1>
  
+<% content_for :html_head do %>
+	<%= javascript_include_tag "character_edit" %>
+<% end %>
+
 <% form_for @character do |f| %>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>

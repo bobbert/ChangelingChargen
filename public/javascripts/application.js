@@ -8,9 +8,10 @@ $(document).ready(function() {
     $('#character_markup').attr('value', f_text );
   }
 
-  load_dots_dropdown = function(context, controller){
+  // loads the dot dropdown, given 
+  load_dots_dropdown = function(context, controller, dot_dropdown_class){
         var id_value_string = context.val();
-        var dots_dropdown = context.parent().find('.dots');
+        var dots_dropdown = context.parent().find('.' + dot_dropdown_class);
         if (id_value_string == "") {
             // if the id is empty remove all the sub_selection options from being selectable and do not do any ajax
             dots_dropdown.find('option').remove();
@@ -43,8 +44,9 @@ $(document).ready(function() {
         };
     };
 
-    $(".autofill-merit-dots").change(function() { load_dots_dropdown($(this), 'merits') });
-    $(".autofill-skill-dots").change(function() { load_dots_dropdown($(this), 'skills') });
-    $(".autofill-contract-dots").change(function() { load_dots_dropdown($(this), 'contracts') });	
+    $(".merit-type").change(function() { load_dots_dropdown($(this), 'merits', 'merit-dots') });
+    $(".skill-type").change(function() { load_dots_dropdown($(this), 'skills', 'skill-dots') });
+    $(".contract-type").change(function() { load_dots_dropdown($(this), 'contracts', 'contract-dots') });	
     
+
 });

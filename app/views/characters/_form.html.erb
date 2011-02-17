@@ -57,10 +57,11 @@
 <h2>Skills</h2>
 <% Character::MaxSkills.times do |n| %>
   <p class="item">
-  <%= form.label "Skill ##{n+1}" %>
-  <%= select_tag "character[skills_to_add][]", options_for_select( [['','']] + Skill.find(:all).map {|s| [s.name,s.id] } ), :class => 'autofill-skill-dots' %>
-  <%= select_tag "character[skill_dots_to_add][]", options_for_select( [['','']] ), :class => 'dots' %>
-  <%= text_field_tag "character[skill_specialties_to_add][]", nil, :maxlength => 50, :value => nil %>
+	<span class="skill-id" style="display:none;"></span>
+  	<%= form.label "Skill ##{n+1}" %>
+  	<%= select_tag "character[skills_to_add][]", options_for_select( [['','']] + Skill.find(:all).map {|s| [s.name,s.id] } ), :class => 'skill-type' %>
+  	<%= select_tag "character[skill_dots_to_add][]", options_for_select( [['','']] ), :class => 'skill-dots' %>
+  	<%= text_field_tag "character[skill_specialties_to_add][]", nil, :maxlength => 50, :value => nil, :class => 'specialty-type' %>
   </p>
 <% end %>
 </div>
@@ -68,10 +69,11 @@
 <h2>Merits</h2>
 <% Character::MaxMerits.times do |n| %>
   <p class="item">
-  <%= form.label "Merit ##{n+1}" %>
-  <%= select_tag "character[merits_to_add][]", options_for_select( [['','']] + Merit.find(:all).map {|s| [s.name,s.id] } ), :class => 'autofill-merit-dots' %>
-  <%= select_tag "character[merit_dots_to_add][]", options_for_select( [['','']]), :class => 'dots' %>
-  <%= text_field_tag "character[merit_specialties_to_add][]", nil, :maxlength => 50, :value => nil %>
+	<span class="merit-id" style="display:none;"></span>
+  	<%= form.label "Merit ##{n+1}" %>
+  	<%= select_tag "character[merits_to_add][]", options_for_select( [['','']] + Merit.find(:all).map {|s| [s.name,s.id] } ), :class => 'merit-type' %>
+  	<%= select_tag "character[merit_dots_to_add][]", options_for_select( [['','']]), :class => 'merit-dots' %>
+  	<%= text_field_tag "character[merit_specialties_to_add][]", nil, :maxlength => 50, :value => nil, :class => 'specialty-type' %>
   </p>
 <% end %>
 </div>
@@ -79,10 +81,11 @@
 <h2>Contracts</h2>
 <% Character::MaxContracts.times do |n| %>
   <p class="item">
-  <%= form.label "Contract ##{n+1}" %>
-  <%= select_tag "character[contracts_to_add][]", options_for_select( [['','']] + Contract.find(:all).map {|s| [s.name,s.id] } ), :class => 'autofill-contract-dots' %>
-  <%= select_tag "character[contract_dots_to_add][]", options_for_select( [['','']]), :class => 'dots' %>
-  <%= text_field_tag "character[contract_specialties_to_add][]", nil, :maxlength => 50, :value => nil %>
+	<span class="contract-id" style="display:none;"></span>
+  	<%= form.label "Contract ##{n+1}" %>
+  	<%= select_tag "character[contracts_to_add][]", options_for_select( [['','']] + Contract.find(:all).map {|s| [s.name,s.id] } ), :class => 'contract-type' %>
+  	<%= select_tag "character[contract_dots_to_add][]", options_for_select( [['','']]), :class => 'contract-dots' %>
+  	<%= text_field_tag "character[contract_specialties_to_add][]", nil, :maxlength => 50, :value => nil, :class => 'specialty-type' %>
   </p>
 <% end %>
 </div>

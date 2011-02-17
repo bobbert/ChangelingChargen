@@ -10,6 +10,7 @@ class MeritsController < ApplicationController
 
     # GET /characters/1/merits
     # GET /characters/1/merits.xml
+    # GET /characters/1/merits.json
     def index
       @character_merits = @character.character_merits.sort
 
@@ -22,6 +23,7 @@ class MeritsController < ApplicationController
 
     # GET /characters/1/merits/1
     # GET /characters/1/merits/1.xml
+    # GET /characters/1/merits/1.json
     def show
       respond_to do |format|
         format.html # show.html.erb
@@ -32,6 +34,7 @@ class MeritsController < ApplicationController
 
     # GET /characters/1/merits/new
     # GET /characters/1/merits/new.xml
+    # GET /characters/1/merits/new.json
     def new
       @character_merit = CharacterMerit.new
 
@@ -48,6 +51,7 @@ class MeritsController < ApplicationController
 
     # POST /characters/1/merits
     # POST /characters/1/merits.xml
+    # POST /characters/1/merits.json
     def create
       @character_merit = CharacterMerit.new(params[:character_merit])
       @character_merit.character = @character
@@ -68,6 +72,7 @@ class MeritsController < ApplicationController
 
     # PUT /characters/1/merits/1
     # PUT /characters/1/merits/1.xml
+    # PUT /characters/1/merits/1.json
     def update
       respond_to do |format|
         if @character_merit.update_attributes(params[:character_merit])
@@ -85,6 +90,7 @@ class MeritsController < ApplicationController
 
     # DELETE /characters/1/merits/1
     # DELETE /characters/1/merits/1.xml
+    # DELETE /characters/1/merits/1.json
     def destroy
       @character_merit.destroy
 

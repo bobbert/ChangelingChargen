@@ -10,6 +10,7 @@ class ContractsController < ApplicationController
 
     # GET /characters/1/contracts
     # GET /characters/1/contracts.xml
+    # GET /characters/1/contracts.json
     def index
       @character_contracts = @character.character_contracts.sort
 
@@ -22,6 +23,7 @@ class ContractsController < ApplicationController
 
     # GET /characters/1/contracts/1
     # GET /characters/1/contracts/1.xml
+    # GET /characters/1/contracts/1.json
     def show
       respond_to do |format|
         format.html # show.html.erb
@@ -32,6 +34,7 @@ class ContractsController < ApplicationController
 
     # GET /characters/1/contracts/new
     # GET /characters/1/contracts/new.xml
+    # GET /characters/1/contracts/new.json
     def new
       @character_contract = CharacterContract.new
 
@@ -48,6 +51,7 @@ class ContractsController < ApplicationController
 
     # POST /characters/1/contracts
     # POST /characters/1/contracts.xml
+    # POST /characters/1/contracts.json
     def create
       @character_contract = CharacterContract.new(params[:character_contract])
       @character_contract.character = @character
@@ -68,6 +72,7 @@ class ContractsController < ApplicationController
 
     # PUT /characters/1/contracts/1
     # PUT /characters/1/contracts/1.xml
+    # PUT /characters/1/contracts/1.json
     def update
       respond_to do |format|
         if @character_contract.update_attributes(params[:character_contract])
@@ -85,24 +90,27 @@ class ContractsController < ApplicationController
 
     # DELETE /characters/1/contracts/1
     # DELETE /characters/1/contracts/1.xml
+    # DELETE /characters/1/contracts/1.json
     def destroy
-      @character_contract.destroy
-
       respond_to do |format|
-        format.html { redirect_to(character_contracts_url(@character)) }
-        format.xml  { head :ok }
-        format.json  { head :ok }
+        if @character_contract.destroy
+          format.html { redirect_to(character_contracts_url(@character)) }
+          format.xml  { head :ok }
+          format.json  { head :ok }
+        else
+          format.html { render :action => "show" }
+          format.xml  { render :xml => @character_contract.errors, :status => :unprocessable_entity }
+          format.json  { render :json => @character_contract.errors, :status => :unprocessable_entity }
+        end
       end
     end
 
     #--- my controller methods ---#
 
-    # GET /characters/1/contracts/1/dot_range
-    # GET /characters/1/contracts/1/dot_range.xml
+    # GET /characters/1/contracts/1/dot_range.json
     def dot_range
       dot_range_vals = dot_range_list(1, 5)
       respond_to do |format|
-        format.xml  { render :xml => dot_range_vals }
         format.json  { render :json => dot_range_vals }
       end
     end
