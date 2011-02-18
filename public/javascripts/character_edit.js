@@ -9,12 +9,13 @@ $(document).ready(function() {
 		var controller_singular = controller.substring(0, controller.length - 1);
         var smc_type_dropdown = context.parent().find('.' + smc_dropdown_class);
         var specialty_type = context.parent().find('.specialty-type').val();
-        var smc_data_row_id_node = context.parent().find('.' + controller_singular + '-id') 
+        var smc_data_row_id_node = context.parent().find('.' + controller_singular + '-id')
+        var smc_data_row_id = smc_data_row_id_node.text();
 		var smc_type_val = smc_type_dropdown.val();
 		var char_id = $('#character-id').text();
 		
-		var smc_data = get_smc_data( null, smc_type_val, char_id, controller, specialty_type, dots_val ); // TEST VALUES
-		var url = '/characters/' + char_id + '/' + controller + ((smc_data_row_id_node.text() === '') ? '' : '/') + smc_data_row_id_node.text() + '.json';
+		var smc_data = get_smc_data( smc_data_row_id, smc_type_val, char_id, controller, specialty_type, dots_val );
+		var url = '/characters/' + char_id + '/' + controller + ((smc_data_row_id === '') ? '' : '/') + smc_data_row_id + '.json';
 		
         // Send the POST request as create() or update(), depending on whether id exists
         $.post( url, smc_data, function(data, textStatus) {
@@ -24,7 +25,7 @@ $(document).ready(function() {
             if (textStatus === 'success') {    
                $('#notice').text("Successfully saved " + smc_type_val + ", " + dots_val + " dots.");
                 // Clear all options from sub category select
-               smc_data_row_id_node.text(data["character_" + controller_singular][controller_singular + "_id"]);
+               smc_data_row_id_node.text(data["character_" + controller_singular]["id"]);
             };
         }, 'json');
     };

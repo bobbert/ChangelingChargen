@@ -7,6 +7,10 @@ module CharactersHelper
     num.times {|n| dot_string += (' ' if ((n % 5 == 0) && (n > 0))).to_s + "&bull;" }
     dot_string
   end
+  
+  def num_to_dot_chars( num )
+    num_to_dots(num).gsub(/\&bull\;/, "•")
+  end
 
   def render_character_merit( char_merit )
     return EmptyElement if char_merit.blank?

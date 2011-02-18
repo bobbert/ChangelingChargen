@@ -34,7 +34,7 @@
 <% Character::AttributeList.each do |attribute_row| %>
   <tr>
   <% attribute_row.each do |attribute| %>
-    <td><%= form.label( attribute.to_s.titlecase ) %> </td><td> <%= form.select attribute, (1..10).to_a.map {|n| [n,n] } %> </td>
+    <td><%= form.label( attribute.to_s.titlecase ) %> </td><td> <%= form.select attribute, (1..10).to_a.map {|n| [num_to_dot_chars(n), n] } %> </td>
   <% end %>
   </tr>
 <% end %>
@@ -44,7 +44,7 @@
 <% other_numerical_attributes = [:wyrd,:clarity] %>
 <% other_numerical_attributes.each do |attribute| %>
   <%= form.label attribute %>
-  <%= form.select attribute, (1..10).to_a.map {|n| [n,n] } %><br />
+  <%= form.select attribute, (1..10).to_a.map {|n| [num_to_dot_chars(n), n] } %><br />
   <br />
 <% end %>
 <p style="display:none;">
