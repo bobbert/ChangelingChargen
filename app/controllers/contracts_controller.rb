@@ -6,6 +6,9 @@ class ContractsController < ApplicationController
     before_filter :set_character, :only => [:index, :new, :create]
     before_filter :set_character_and_contracts, :except => [:index, :new, :create, :dot_range]
 
+    protect_from_forgery :secret => 'any_phrase',  
+                         :except => :create, :update
+
     include CharactersHelper
 
     # GET /characters/1/contracts

@@ -24,29 +24,29 @@ $(document).ready(function() {
             if (textStatus === 'success') {    
                $('#notice').text("Successfully saved " + smc_type_val + ", " + dots_val + " dots.");
                 // Clear all options from sub category select
-               smc_data_row_id_node.text(data[id]);
+               smc_data_row_id_node.text(data["character_" + controller_singular][controller_singular + "_id"]);
             };
-        });
+        }, 'json');
     };
 
 	// creates data to be sent in Ajax request, stringified
 	get_smc_data = function(character_smc_id, smc_id, char_id, smc_type, selected_specialty, selected_dots) {
 		
 		var method = (character_smc_id ? "PUT" : "POST");
+		var auth_tok = "vwZfILJx1QYJ5Y4AuV1LahBwiKYkzqpPcDZHoInxMg8=";
 		var json_data;
 		
 		if (smc_type == 'merits') {
-			json_data = { "_method": method, "character_id": char_id, "character_merit": { "merit_id": smc_id, "specialty": selected_specialty, "dots": selected_dots } };
+			json_data = { _method: method, authenticity_token: auth_tok, character_id: char_id, character_merit: { merit_id: smc_id, specialty: selected_specialty, dots: selected_dots } };
 		} else if (smc_type == 'skills') {
-			// {"character_skill":{"skill_id":9,"specialty":"","dots":3,"created_at":"2011-02-13T21:43:40Z","updated_at":"2011-02-13T21:43:40Z","id":4,"character_id":1}}
-			json_data = { "_method": method, "character_id": char_id, "character_skill": { "skill_id": smc_id, "specialty": selected_specialty, "dots": selected_dots } };
+			json_data = { _method: method, authenticity_token: auth_tok, character_id: char_id, character_skill: { skill_id: smc_id, specialty: selected_specialty, dots: selected_dots } };
 		} else if (smc_type == 'contracts') {
-			json_data = { _method: method, character_contracts: { id: character_smc_id, contract_id: smc_id, specialty: selected_specialty, dots: selected_dots } };
+			json_data = { _method: method, authenticity_token: auth_tok, character_id: char_id, character_contract: { contract_id: smc_id, specialty: selected_specialty, dots: selected_dots } };
 		} else { 
 			return false;
 		}
 		//return json_data;
-		return JSON.stringify(json_data);
+		return json_data;
 	}
 
     $(".merit-dots").change(function() { submit_character_smc_data($(this), 'merits', 'merit-type') });

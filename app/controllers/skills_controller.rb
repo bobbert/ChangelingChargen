@@ -61,7 +61,7 @@ class SkillsController < ApplicationController
           flash[:notice] = 'Character Skill was successfully created.'
           format.html { redirect_to(character_skill_url(@character,@character_skill)) }
           format.xml  { render :xml => @character_skill, :status => :created, :location => @character_skill }
-          format.json  { render :json => @character_skill, :status => :created, :location => @character_skill }
+          format.json  { render :json => @character_skill }
         else
           format.html { render :action => "new" }
           format.xml  { render :xml => @character_skill.errors, :status => :unprocessable_entity }
