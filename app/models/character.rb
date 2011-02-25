@@ -23,10 +23,10 @@ class Character < ActiveRecord::Base
 
   NumCoreStatRows = 9    # RWP: eliminate if/when application is sufficiently DRYed up
 
-  AttributeList = [[:intelligence,:strength,:presence],
-                   [:wits,:dexterity,:manipulation],
-                   [:resolve,:stamina,:composure]
-                  ]
+  AttributeList = { :mental => [:intelligence,:wits,:resolve],
+                    :social => [:presence,:manipulation,:composure],
+                    :physical => [:strength,:dexterity,:stamina]
+                  }
 
   WyrdStats = { 1 => {:max_glamour => 10, :glamour_turn => 1, :attr_max => 5},
                 2 => {:max_glamour => 11, :glamour_turn => 2, :attr_max => 5},

@@ -1,30 +1,42 @@
 <!--- Character stat block auto-generated using ChangelingChargen Rails app --->
 <div id="character_data">
-<table class="character-stat-block">
-<tr><th colspan=3 class="character-name"><img src="/images/fae.gif"><%= "#{@character.name}, #{@character.title}" %></th></tr>
-<tr><td><label>Seeming:</label> <%= @character.seeming.name %> </td>
-    <td><label>Kith:</label> <%= @character.formatted_kiths %> </td>
-    <td><label>Court: </label> <%= @character.court_name %> </td></tr>
-<tr><td><label>Virtue: </label> <%= @character.virtue.name %> </td>
-    <td><label>Vice: </label> <%= @character.vice.name %> </td>
-    <td><label>Entitlements: </label> None </td></tr>
-<tr><th colspan=3>Attributes</th></tr>
-<% Character::AttributeList.each do |attribute_row| %>
-  <tr>
-  <% attribute_row.each do |attribute| %>
-    <td><label><%= attribute.to_s.titlecase %></label> <%= num_to_dots( @character.send(attribute) ) %> </td>
+<table style="border:2px solid #061;width:680px;margin:10px 0 20px 0;font-size:0.7em;font-family:Verdana, Arial, Helvetica, sans-serif;">
+<tr><th style="background-color:darkgreen;color:white;font-size:1.4em;" colspan=3 class="character-name">
+   <img src="/images/fae.gif"><%= "#{@character.name}, #{@character.title}" %>
+</th></tr>
+<tr><td>
+  <b style="color:darkgreen;">Seeming:</b> <%= @character.seeming.name %> <br />
+  <b style="color:darkgreen;">Virtue: </b> <%= @character.virtue.name %> 
+</td><td>
+  <b style="color:darkgreen;">Kith:</b> <%= @character.formatted_kiths %> <br />
+  <b style="color:darkgreen;">Court: </b> <%= @character.court_name %> 
+</td><td>
+   <b style="color:darkgreen;">Vice: </b> <%= @character.vice.name %> <br />
+   <b style="color:darkgreen;">Entitlements: </b> None 
+</td></tr>
+<tr><th style="background-color:darkgreen;color:white;" colspan=3 align=center>Attributes</th></tr>
+<tr>
+<% [:mental,:physical,:social].each do |attribute_row| %>
+  <td>
+  <% Character::AttributeList[attribute_row].each_with_index do |attribute, i| %>
+    <%= ("<br />" if i > 0).to_s %><b style="color:darkgreen;"><%= attribute.to_s.titlecase %></b> <%= num_to_dots( @character.send(attribute) ) %> 
   <% end %>
-  </tr>
+  </td>
 <% end %>
-<tr><th> Skills </th><th> Merits / Flaws </th><th> Core Stats </th></tr>
-<% char_skills = render_all_skills_for_char(@character) %>
-<% char_merits_and_contracts = render_all_merits_for_char(@character) + ['<th>Contracts</th>'] + render_all_contracts_for_char(@character) %>
-<% core_stats = render_all_core_stats_for_char(@character) %>
-<% @character.num_table_rows.times do |row_n| %>
-  <tr><%= (char_skills[row_n] || '<td></td>') %>
-      <%= (char_merits_and_contracts[row_n] || '<td></td>') %>
-      <%= (core_stats[row_n] || '<td></td>') %></tr>
-<% end %>
+</tr>
+<tr><th style="background-color:darkgreen;color:white;">Skills</th><th style="background-color:darkgreen;color:white;">Merits / Flaws</th>
+    <th style="background-color:darkgreen;color:white;">Core Stats</th></tr>
+<tr><td rowspan=3 valign=top>
+<%= render_all_skills_for_char(@character) %>
+</td><td valign=top>
+<%= render_all_merits_for_char(@character) %>
+</td><td rowspan=3 valign=top>
+<%= render_all_core_stats_for_char(@character) %>
+</td></tr>
+<tr><th style="background-color:darkgreen;color:white;">Contracts</th></tr>
+<tr><td>
+<%= render_all_contracts_for_char(@character) %>
+</td></tr>
 </table>
 </div>
 <!--- End character stat block --->

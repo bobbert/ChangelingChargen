@@ -15,33 +15,32 @@ module CharactersHelper
   def render_character_merit( char_merit )
     return EmptyElement if char_merit.blank?
     cm_spec = add_parens_if_exists(char_merit.specialty)
-    return "<td><label>#{char_merit.merit.name}</label> #{cm_spec} #{num_to_dots(char_merit.dots)}</td>"
+    return "<b style=\"color:darkgreen;\">#{char_merit.merit.name}</b> #{cm_spec} #{num_to_dots(char_merit.dots)}"
   end
 
-  # returns an array of all HTML-rendered merits for character passed in
   def render_all_merits_for_char( char )
-    char.character_merits.map {|cm| render_character_merit(cm) }
+    char.character_merits.map {|cm| render_character_merit(cm) }.join('<br />')
   end
 
   def render_character_skill( char_skill )
     return EmptyElement if char_skill.blank?
     cs_spec = add_parens_if_exists(char_skill.specialty)
-    return "<td><label>#{char_skill.skill.name}</label> #{cs_spec} #{num_to_dots(char_skill.dots)}</td>"
+    return "<b style=\"color:darkgreen;\">#{char_skill.skill.name}</b> #{cs_spec} #{num_to_dots(char_skill.dots)}"
   end
 
   def render_all_skills_for_char( char )
-     char.character_skills.map {|cs| render_character_skill(cs) }
+     char.character_skills.map {|cs| render_character_skill(cs) }.join('<br />')
   end
 
   def render_character_contract( char_contract )
     return EmptyElement if char_contract.blank?
     # "Goblin" if goblin contract; specialty type otherwise
     spec_lbl = (char_contract.contract.goblin ? '(Goblin)' : add_parens_if_exists(char_contract.specialty) ).to_s
-    return "<td><label>#{char_contract.contract.name}</label> #{spec_lbl} #{num_to_dots(char_contract.dots)}</td>"
+    return "<b style=\"color:darkgreen;\">#{char_contract.contract.name}</b> #{spec_lbl} #{num_to_dots(char_contract.dots)}"
   end
 
   def render_all_contracts_for_char( char )
-     char.character_contracts.map {|cs| render_character_contract(cs) }
+     char.character_contracts.map {|cs| render_character_contract(cs) }.join('<br />')
   end
 
   def render_all_core_stats_for_char( char )
@@ -55,7 +54,7 @@ module CharactersHelper
                   ['Size:', char.true_size.to_s],
                   ['Speed:', char.speed.to_s] ]
 
-    corestats.map {|cs_arr| "<td><label>#{cs_arr[0]}</label> #{cs_arr[1]}</td>" }
+    corestats.map {|cs_arr| "<b style=\"color:darkgreen;\">#{cs_arr[0]}</b> #{cs_arr[1]}" }.join('<br />')
   end
   
   # adds enclosing parens to non-null objects
