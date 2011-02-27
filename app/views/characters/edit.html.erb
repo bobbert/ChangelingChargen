@@ -4,10 +4,62 @@
 	<%= javascript_include_tag "character_edit" %>
 <% end %>
 
-<% form_for @character do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Update Character" %>
+<!--- Character stat block auto-generated using ChangelingChargen Rails app --->
+<% form_for @character do |form| %>
+<%= form.error_messages %>
+
+<div id="character_data">
+<table style="border:2px solid #061;width:980px;margin:10px 0 20px 0;font-size:0.7em;font-family:Verdana, Arial, Helvetica, sans-serif;">
+<tr><th style="background-color:darkgreen;color:white;font-size:1.4em;" colspan=3 class="character-name">
+   <img src="/images/fae.gif"><%= form.text_field :name, :class => 'core-stat' %>, <%= form.text_field :title, :class => 'core-stat' %>
+</th></tr>
+<tr><td>
+  <b style="color:darkgreen;">Seeming:</b> <%= form.collection_select :seeming_id, Seeming.find(:all), :id, :name, {}, :class => 'core-stat' %> <br />
+  <b style="color:darkgreen;">Virtue: </b> <%= form.collection_select :virtue_id, Virtue.find(:all), :id, :name, {}, :class => 'core-stat' %>
+</td><td>
+  <b style="color:darkgreen;">Kith:</b> <%= form.collection_select :kith_id, Kith.find(:all), :id, :name, {}, :class => 'core-stat' %> 
+                                        <span id="second_kith" style="display:none;"> / <%= form.collection_select :second_kith_id, Kith.find(:all), :id, :name, {}, :class => 'core-stat' %></span> <br />
+  <b style="color:darkgreen;">Court: </b> <%= form.collection_select :court_id, Court.find(:all), :id, :name, {}, :class => 'core-stat' %>
+</td><td>
+   <b style="color:darkgreen;">Vice: </b> <%= form.collection_select :vice_id, Vice.find(:all), :id, :name, {}, :class => 'core-stat' %> <br />
+   <b style="color:darkgreen;">Entitlements: </b> None 
+</td></tr>
+<tr><th style="background-color:darkgreen;color:white;" colspan=3 align=center>Attributes</th></tr>
+<tr>
+<% [:mental,:physical,:social].each do |attribute_row| %>
+  <td>
+  <% Character::AttributeList[attribute_row].each_with_index do |attribute, i| %>
+    <%= ("<br />" if i > 0).to_s %><b style="color:darkgreen;"><%= attribute.to_s.titlecase %></b> <%= form.select attribute, (1..10).to_a.map {|n| [num_to_dot_chars(n), n] }, {}, :class => 'core-stat' %>
+  <% end %>
+  </td>
 <% end %>
- 
+</tr>
+<tr><th style="background-color:darkgreen;color:white;">Skills</th><th style="background-color:darkgreen;color:white;">Merits / Flaws</th>
+    <th style="background-color:darkgreen;color:white;">Core Stats</th></tr>
+<tr><td id="skills_cell" rowspan=3 valign=top>
+<%= render_all_skills_for_char(@character, true) %>
+<%= render_character_skill(nil, true) %>
+<%= content_tag :button, 'New Skill', :id => 'new_skill', :onclick => "return false;" %>
+
+</td><td id="merits_cell" valign=top>
+<%= render_all_merits_for_char(@character, true) %>
+<%= render_character_merit(nil, true) %>
+<%= content_tag :button, 'New Merit', :id => 'new_merit', :onclick => "return false;" %>
+
+</td><td id="core_stats_cell" rowspan=3 valign=top>
+<%= render_all_core_stats_for_char(@character, true) %>
+</td></tr>
+<tr><th style="background-color:darkgreen;color:white;">Contracts</th></tr>
+<tr><td id="contracts_cell" valign=top>
+<%= render_all_contracts_for_char(@character, true) %>
+<%= render_character_contract(nil, true) %>
+<%= content_tag :button, 'New Contract', :id => 'new_contract', :onclick => "return false;" %>
+
+</td></tr>
+</table>
+</div>
+<%= form.submit "Update Character" %>
+<% end %>
+<!--- End character stat block --->
+
 <br /><%= link_to "Show Character Block", character_path %>

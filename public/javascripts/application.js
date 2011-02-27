@@ -8,7 +8,27 @@ $(document).ready(function() {
     $('#character_markup').attr('value', f_text );
   }
 
-  // loads the dot dropdown, given 
+  // methods for adding new skill/merit/contract rows
+  $('#new_skill').click(function() {
+	new_row = $('#skills_cell p.item:last').clone(true);
+	$(new_row).children().each(function() { $(this).val(''); });
+	$(this).before(new_row);
+    return false;
+  });
+  $('#new_merit').click(function() {
+	new_row = $('#merits_cell p.item:last').clone(true);
+	$(new_row).children().each(function() { $(this).val(''); });
+	$(this).before(new_row);
+    return false;
+  });
+  $('#new_contract').click(function() {
+	new_row = $('#contracts_cell p.item:last').clone(true);
+	$(new_row).children().each(function() { $(this).val(''); });
+	$(this).before(new_row);
+    return false;
+  });
+
+  // loads the dot dropdown via JSON, if a skill/merit/contract type is selected
   load_dots_dropdown = function(context, controller, dot_dropdown_class){
         var id_value_string = context.val();
         var dots_dropdown = context.parent().find('.' + dot_dropdown_class);

@@ -17,12 +17,6 @@ class Character < ActiveRecord::Base
 
   before_save :add_skills_and_merits_and_contracts
 
-  MaxSkills = 20
-  MaxContracts = 9
-  MaxMerits = 9
-
-  NumCoreStatRows = 9    # RWP: eliminate if/when application is sufficiently DRYed up
-
   AttributeList = { :mental => [:intelligence,:wits,:resolve],
                     :social => [:presence,:manipulation,:composure],
                     :physical => [:strength,:dexterity,:stamina]
@@ -112,11 +106,12 @@ class Character < ActiveRecord::Base
   end
 
   def attr_max
-    return 0 unless (1..10).include? wyrd
+    return 5 unless (1..10).include? wyrd
     WyrdStats[wyrd][:attr_max]
   end
 
   def glamour_stats
+    return "" unless (1..10).include? wyrd
     "#{max_glamour} / #{glamour_turn}"
   end
 
@@ -141,17 +136,19 @@ class Character < ActiveRecord::Base
   # adds all new Skills, Merits, and Contracts to character
   def add_skills_and_merits_and_contracts
     [:skill,:merit,:contract].each do |category_type|
-      h = get_smc_constant_names(category_type)
-      (add_category, add_dots, add_speclty) = ["#{h[:plural]}_to_add", "#{category_type.to_s}_dots_to_add", 
+      names = get_smc_constant_names(category_type)
+      (add_category, add_dots, add_speclty) = ["#{names[:plural]}_to_add", "#{category_type.to_s}_dots_to_add", 
                                                "#{category_type.to_s}_specialties_to_add"]
-      
+
+      smc_category_vals = self.send(add_category) || []
+
       # iterating (max_constant) number of times
-      instance_eval(h[:max_constant]).times do |n|
-        unless self.send(add_category)[n].blank? || self.send(add_dots)[n].blank?
-          category = instance_eval(h[:class]).find( self.send(add_category)[n].to_i )
-          assoc = instance_eval(h[:assoc_class]).create( :dots => self.send(add_dots)[n].to_i, :specialty => self.send(add_speclty)[n].to_s )
-          category.send("character_#{h[:plural]}") <<  assoc
-          self.send("character_#{h[:plural]}") <<  assoc
+      smc_category_vals.length.times do |n|
+        unless self.send(add_dots)[n].blank?
+          category = instance_eval(names[:class]).find( smc_category_vals[n].to_i )
+          assoc = instance_eval(names[:assoc_class]).create( :dots => self.send(add_dots)[n].to_i, :specialty => self.send(add_speclty)[n].to_s )
+          category.send("character_#{names[:plural]}") <<  assoc
+          self.send("character_#{names[:plural]}") <<  assoc
         end
       end
     end
@@ -162,8 +159,7 @@ private
   # gets constant names for ActiveRecord
   def get_smc_constant_names( name )
     (sing_form, plural_form) = [name.to_s, name.to_s.pluralize]
-    { :max_constant => "Max#{plural_form.titlecase}",
-      :class => sing_form.titlecase,
+    { :class => sing_form.titlecase,
       :plural => plural_form,
       :assoc_class => "Character#{sing_form.titlecase}" }
   end
