@@ -75,7 +75,7 @@ module CharactersHelper
                     ['Clarity:', select(:character, :clarity, (1..10).to_a.map {|n| [n, n] }, {}, :class => 'core-stat') ],
                     ['Initiative:', (char.initiative if char).to_s],
                     ['Defense:', (char.defense if char).to_s],
-                    ['Size:', (char.true_size if char).to_s],
+                    ['Size:', select(:character, :size, (1..10).to_a.map {|n| [n, n] }, {}, :class => 'core-stat') ],
                     ['Speed:', (char.speed if char).to_s] ]
     else
       corestats = [ ['Wyrd', num_to_dots( char.wyrd )],
@@ -85,7 +85,7 @@ module CharactersHelper
                     ['Clarity:', char.clarity.to_s],
                     ['Initiative:', char.initiative.to_s],
                     ['Defense:', char.defense.to_s],
-                    ['Size:', char.true_size.to_s],
+                    ['Size:', char.true_size ],
                     ['Speed:', char.speed.to_s] ]
     end
 
